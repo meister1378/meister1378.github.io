@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>백명준 — meister1378 · Vision AI Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Gothic+A1:wght@300;400;500;700&amp;family=Space+Mono:wght@400;500&amp;display=swap">
+<style>
+  :root {
+    --bg:     oklch(5% 0 0);
+    --bg2:    oklch(6.5% 0 0);
+    --panel:  oklch(9% 0 0);
+    --panel2: oklch(12% 0 0);
+    --ink:    oklch(96% 0 0);
+    --muted:  oklch(70% 0 0);
+    --faint:  oklch(48% 0 0);
+    --cy:     oklch(94% 0 0);
+    --cy2:    oklch(99% 0 0);
+    --good:   oklch(68% 0.07 150);
+    --bad:    oklch(62% 0.1 25);
+    --line:   rgba(255,255,255,.1);
+    --line2:  rgba(255,255,255,.06);
+    --line-strong: rgba(255,255,255,.22);
+
+    --cy-soft:   color-mix(in oklch, var(--cy) 12%, transparent);
+    --good-soft: color-mix(in oklch, var(--good) 15%, transparent);
+    --shadow-card: none;
+
+    --ink-bright: oklch(99% 0 0);
+    --btn-ink:    oklch(8% 0 0);
+    --echo:       oklch(74% 0 0);
+
+    --f-head: 'Space Grotesk', 'Gothic A1', system-ui, sans-serif;
+    --f-body: 'Gothic A1', 'Space Grotesk', system-ui, sans-serif;
+    --f-mono: 'Space Mono', ui-monospace, Menlo, monospace;
+
+    --fs-h1: clamp(34px, 5.4vw, 64px);
+    --fs-h2: clamp(25px, 3.2vw, 38px);
+    --fs-h3: 19px;
+    --fs-lead: 17px;
+    --fs-body: 15.5px;
+    --fs-meta: 12px;
+
+    --gap-xs: 8px; --gap-sm: 12px; --gap-md: 20px; --gap-lg: 32px; --gap-xl: 56px; --gap-2xl: 88px;
+    --container: 1120px; --gutter: 28px;
+    --radius: 12px; --radius-lg: 16px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; overflow-x: hidden; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: var(--f-body); font-size: var(--fs-body); line-height: 1.65;
+    text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased;
+    word-break: keep-all;
+    overflow-x: hidden; max-width: 100vw;
+  }
+  img, svg { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; cursor: pointer; }
+  p { text-wrap: pretty; }
+  h1, h2, h3, h4 { text-wrap: balance; }
+
+  .container { max-width: var(--container); margin-inline: auto; padding-inline: var(--gutter); }
+  .section { padding-block: clamp(48px, 7vw, var(--gap-2xl)); }
+  .section + .section { border-top: 1px solid var(--line-strong); }
+  .stack { display: flex; flex-direction: column; }
+  .stack > * + * { margin-top: var(--gap-md); }
+  .row { display: flex; align-items: center; gap: var(--gap-md); }
+  .row-between { display: flex; align-items: center; justify-content: space-between; gap: var(--gap-md); }
+  .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--gap-lg); }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap-lg); }
+  @media (max-width: 920px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+  .h1, h1 { font-family: var(--f-head); font-weight: 600; font-size: var(--fs-h1); line-height: 1.1; letter-spacing: -0.03em; margin: 0; color: var(--ink-bright); }
+  .h2, h2 { font-family: var(--f-head); font-weight: 600; font-size: var(--fs-h2); line-height: 1.18; letter-spacing: -0.02em; margin: 0; }
+  .h3, h3 { font-size: var(--fs-h3); font-weight: 600; line-height: 1.3; margin: 0; }
+  .lead, .sub { font-size: var(--fs-lead); line-height: 1.7; color: var(--muted); max-width: 58ch; margin: 0; }
+  .kicker {
+    font-family: var(--f-mono); font-size: 14px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--cy); margin: 0 0 14px;
+  }
+  .meta { font-family: var(--f-mono); font-size: var(--fs-meta); color: var(--faint); }
+  .num  { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+
+  .topnav {
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in oklch, var(--bg) 72%, transparent); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line2);
+  }
+  .topnav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: var(--gap-md); }
+  .topnav .logo { font-family: var(--f-head); font-size: 16px; font-weight: 700; letter-spacing: -0.01em; }
+  .topnav .logo .dot { color: var(--cy); }
+  .topnav nav { display: flex; gap: var(--gap-lg); }
+  .topnav nav a { font-family: var(--f-mono); font-size: 12px; letter-spacing: .04em; color: var(--muted); }
+  .topnav nav a:hover { color: var(--ink); }
+  @media (max-width: 820px) { .topnav nav { display: none; } }
+  .pagefoot { padding-block: var(--gap-xl); color: var(--faint); font-size: 13px; border-top: 1px solid var(--line2); background: var(--bg2); }
+  .pagefoot .row-between { flex-wrap: wrap; gap: var(--gap-md); }
+  .pagefoot .fl { font-family: var(--f-head); font-weight: 700; font-size: 15px; color: var(--ink); }
+  .pagefoot .fr { font-family: var(--f-mono); font-size: 12px; display: flex; gap: 20px; flex-wrap: wrap; }
+  .pagefoot a:hover { color: var(--cy2); }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; padding: 11px 20px;
+    border-radius: 999px; border: 1px solid transparent;
+    font-family: var(--f-head); font-size: 14px; font-weight: 600;
+    transition: transform .12s ease, filter .15s ease, border-color .15s ease, color .15s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn:active { transform: translateY(0); }
+  .btn-solid { background: var(--cy); color: var(--btn-ink); box-shadow: 0 0 26px -6px color-mix(in oklch, var(--cy) 65%, transparent); }
+  .btn-solid:hover { filter: brightness(1.08); }
+  .btn-ghost { background: rgba(255,255,255,.055); color: var(--ink); border-color: var(--line-strong); }
+  .btn-ghost:hover { background: rgba(255,255,255,.09); border-color: var(--cy); color: var(--cy2); }
+  .btn-arrow::after { content: '→'; transition: transform .15s ease; }
+  .btn-arrow:hover::after { transform: translateX(2px); }
+  a:focus-visible, button:focus-visible, .btn:focus-visible { outline: 1px solid var(--cy); outline-offset: 4px; border-radius: 3px; }
+
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px;
+    border-radius: 999px; font-family: var(--f-mono); font-size: 11px;
+    letter-spacing: .05em; text-transform: uppercase; white-space: nowrap;
+  }
+  .chip-cy { background: var(--cy-soft); color: var(--cy2); border: 1px solid color-mix(in oklch, var(--cy) 30%, transparent); }
+  .chip-neutral { background: rgba(255,255,255,.07); color: var(--muted); }
+  .competency-tag {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 13px 24px; border: 1px solid var(--line-strong); border-radius: 999px;
+    background: var(--panel2); font-family: var(--f-head); font-weight: 700; font-size: 16px; color: var(--ink-bright);
+  }
+  .skill-chip { padding: 10px 18px; font-size: 13px; }
+
+  .feature {
+    background: var(--panel);
+    border: 1px solid var(--line); border-radius: var(--radius-lg);
+    padding: 26px;
+  }
+  .feature .feature-mark {
+    width: 34px; height: 34px; display: grid; place-items: center;
+    border: 1px solid var(--line); border-radius: 9px; color: var(--cy2);
+    margin-bottom: var(--gap-sm); background: var(--bg2);
+  }
+  .feature .feature-mark svg { width: 17px; height: 17px; }
+  .feature h3 { margin-bottom: 6px; color: var(--ink); }
+  .feature p  { margin: 0 0 14px; color: var(--muted); font-size: 14px; }
+  .feature .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+  .feature .feature-link { font-family: var(--f-mono); font-size: 12.5px; color: var(--cy2); }
+  .feature .feature-link:hover { text-decoration: underline; }
+
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s cubic-bezier(.2,.65,.25,1), transform .9s cubic-bezier(.2,.65,.25,1); }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+  /* ── hero ── */
+  .hero {
+    position: relative; overflow: hidden;
+    background: radial-gradient(ellipse 85% 55% at 50% 0%, color-mix(in oklch, var(--panel2) 85%, white 4%) 0%, var(--bg) 62%), var(--bg);
+    min-height: 100svh; display: flex; flex-direction: column;
+    padding-block: clamp(32px, 6vw, 56px);
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(640px 480px at 30% 30%, black 25%, transparent 75%);
+  }
+  .hero-fade {
+    position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background: linear-gradient(180deg, transparent 0%, transparent 38%, var(--bg) 92%, var(--bg) 100%);
+  }
+  .hero-inner { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  .hero-split { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: var(--gap-xl); align-items: center; }
+
+  @media (max-width: 920px) { .hero-split { grid-template-columns: 1fr; } }
+
+  .namebadge {
+    display: inline-flex; align-items: center; gap: 9px; font-family: var(--f-mono); font-size: 12.5px;
+    color: var(--ink-bright); background: rgba(255,255,255,.045); border: 1px solid var(--line);
+    border-radius: 999px; padding: 7px 16px; margin: 0 0 26px;
+  }
+  .namebadge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--cy); box-shadow: 0 0 8px var(--cy); flex: none; }
+  .hero .kicker { margin-bottom: 20px; }
+  .hero h1 { margin-bottom: var(--gap-lg); }
+  .hero .lead { margin-bottom: var(--gap-xl); color: var(--echo); }
+  .hero-cta { display: inline-flex; gap: var(--gap-sm); flex-wrap: wrap; }
+
+  /* ── terminal card ── */
+  .term {
+    background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-lg);
+    overflow: hidden; font-family: var(--f-mono);
+  }
+  .term-bar {
+    display: flex; align-items: center; gap: 10px; padding: 11px 16px;
+    background: var(--bg2); border-bottom: 1px solid var(--line2);
+  }
+  .term-dots { display: inline-flex; gap: 6px; }
+  .term-dots i { width: 9px; height: 9px; border-radius: 50%; background: var(--line-strong); display: block; }
+  .term-file { font-size: 12px; color: var(--muted); }
+  .term-badge { margin-left: auto; }
+  .term-body { padding: 18px 16px 22px; font-size: 13.5px; line-height: 1.9; min-height: 100px; }
+  .term-line { margin: 0; color: var(--muted); }
+  .term-line .pfx { color: var(--faint); }
+  .term-line--out { color: var(--ink-bright); }
+  .caret { display: inline-block; width: 7px; height: 15px; background: var(--cy); margin-left: 3px; vertical-align: -2px; animation: blink 1s step-end infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { .caret { animation: none; } }
+
+  .profile-card {
+    margin-top: 16px; background: var(--bg2); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 20px 22px;
+  }
+  .profile-card-top { display: flex; justify-content: space-between; font-family: var(--f-mono); font-size: 11px; color: var(--faint); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 10px; }
+  .profile-card-title { font-family: var(--f-head); font-weight: 600; font-size: 20px; color: var(--ink-bright); margin: 0 0 14px; }
+  .profile-row { display: flex; justify-content: space-between; gap: 14px; padding: 9px 0; border-top: 1px solid var(--line2); font-size: 13.5px; }
+  .profile-row:first-of-type { border-top: 0; }
+  .profile-row .k { color: var(--faint); font-family: var(--f-mono); font-size: 12px; }
+  .profile-row .v { color: var(--ink); text-align: right; max-width: 60%; }
+
+  /* ── timeline (verified DACON activity) ── */
+  .timeline-list { display: flex; flex-direction: column; }
+  .timeline-row {
+    display: grid; grid-template-columns: 76px 1fr auto auto; gap: var(--gap-md); align-items: baseline;
+    padding: 15px 0; border-top: 1px solid var(--line2); font-size: 14.5px;
+  }
+  .timeline-row:first-child { border-top: 0; }
+  .timeline-rank { font-family: var(--f-mono); font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .timeline-name { color: var(--ink); }
+  .timeline-detail { font-family: var(--f-mono); font-size: 12.5px; color: var(--muted); white-space: nowrap; }
+  @media (max-width: 640px) {
+    .timeline-row { grid-template-columns: 1fr auto; row-gap: 6px; }
+    .timeline-rank { grid-column: 1; order: 1; }
+    .timeline-detail { grid-column: 2; order: 2; justify-self: end; }
+    .timeline-name { grid-column: 1 / -1; order: 3; }
+  }
+
+  /* ── placeholder blocks (no verified data yet) ── */
+  .placeholder-card {
+    border: 1px dashed var(--line-strong); border-radius: var(--radius-lg); padding: 22px 24px;
+    color: var(--faint); font-size: 13.5px; font-family: var(--f-mono); line-height: 1.8;
+  }
+
+  .letter-block { max-width: 66ch; }
+  .letter-block p { color: var(--muted); margin: 0 0 14px; }
+  .letter-block p:last-child { margin-bottom: 0; }
+</style>
+</head>
+<body>
+
+  <header class="topnav" data-od-id="topnav">
+    <div class="container topnav-inner">
+      <span class="logo">meister1378<span class="dot">.</span></span>
+      <nav>
+        <a href="#top">소개</a>
+        <a href="#activity">활동</a>
+        <a href="#history">연혁</a>
+        <a href="#projects">프로젝트</a>
+        <a href="#skills">스킬</a>
+        <a href="#letter">자기소개</a>
+      </nav>
+      <a class="btn btn-ghost" href="https://github.com/meister1378" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </header>
+
+  <main id="content">
+
+    <section class="hero" id="top" data-od-id="hero">
+      <div class="hero-fade"></div>
+      <div class="container hero-inner">
+        <div class="hero-split">
+          <div>
+            <div class="namebadge"><span class="dot"></span> meister1378 · Vision AI Engineer</div>
+            <p class="kicker">백명준의 포트폴리오</p>
+            <h1>백문불여일견(百聞不如一見)</h1>
+            <p class="lead">백 번의 설명보다 한 번의 실행으로 증명합니다.<br>개발한 모델을 직접 실행하고 결과를 확인할 수 있습니다.<br>프로젝트를 선택해 직접 경험해 보세요!</p>
+            <div class="hero-cta">
+              <button class="btn btn-solid" id="toggle-more" aria-expanded="false" aria-controls="more-content">소개(About Me) ↓</button>
+              <a class="btn btn-ghost" href="meister1378-ai-portfolio.html">프로젝트 실행하기(TRY IT)</a>
+            </div>
+          </div>
+          <div>
+            <div class="term" data-term="">
+              <div class="term-bar">
+                <span class="term-dots"><i></i><i></i><i></i></span>
+                <span class="term-file">profile.ts</span>
+                <span class="chip chip-cy term-badge">● LIVE</span>
+              </div>
+              <div class="term-body">
+                <p class="term-line"><span class="pfx">$</span> <span data-term-cmd=""></span><span class="caret" data-term-caret1=""></span></p>
+                <p class="term-line term-line--out"><span data-term-out=""></span><span class="caret" data-term-caret2="" style="display:none"></span></p>
+              </div>
+            </div>
+            <div class="profile-card">
+              <div class="profile-card-top"><span>PROFILE</span><span>meister1378</span></div>
+              <p class="profile-card-title">Vision AI Engineer</p>
+              <div class="profile-row"><span class="k">GITHUB</span><span class="v">github.com/meister1378</span></div>
+              <div class="profile-row"><span class="k">FOCUS</span><span class="v">이상탐지 · 영상 복원 · 최적화 · 3D 인식</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="more-content" data-od-id="more-content" hidden>
+
+    <section class="section" id="activity" data-od-id="activity">
+      <div class="container stack reveal" style="gap: 28px;">
+        <div style="max-width: 48ch;">
+          <p class="kicker">ACTIVITY.LOG</p>
+          <h2>경진대회 활동 타임라인</h2>
+          <p class="lead" style="margin-top: 12px;">DACON 경진대회 14회 참가 기록입니다. 실제 결과만 반영했으며, 상위 성과에는 WINNER 표시를 붙였습니다.</p>
+        </div>
+        <div class="timeline-list">
+          <div class="timeline-row">
+            <span class="timeline-rank num">2등</span>
+            <span class="timeline-name">서울시 평균 기온 예측 AI 해커톤</span>
+            <span class="timeline-detail">624팀 중 · 상위 0.3%</span>
+            <span class="chip chip-cy">WINNER</span>
+          </div>
+          <div class="timeline-row">
+            <span class="timeline-rank num">3등</span>
+            <span class="timeline-name">반도체 소자 이상 탐지 AI 경진대회</span>
+            <span class="timeline-detail">383팀 중 · 상위 0.7%</span>
+            <span class="chip chip-cy">WINNER</span>
+          </div>
+          <div class="timeline-row">
+            <span class="timeline-rank num">4등</span>
+            <span class="timeline-name">SW중심대학 공동 AI 경진대회 (예선)</span>
+            <span class="timeline-detail">192팀 중 · 상위 2%</span>
+            <span class="chip chip-cy">WINNER</span>
+          </div>
+          <div class="timeline-row">
+            <span class="timeline-rank num">4등</span>
+            <span class="timeline-name">코드 유사성 판단 시즌2 AI 경진대회</span>
+            <span class="timeline-detail">133팀 중 · 상위 3%</span>
+            <span class="chip chip-cy">WINNER</span>
+          </div>
+          <div class="timeline-row">
+            <span class="timeline-rank num">7등</span>
+            <span class="timeline-name">2024 생명연구자원 AI활용 경진대회</span>
+            <span class="timeline-detail">940팀 중 · 상위 0.7%</span>
+            <span></span>
+          </div>
+          <div class="timeline-row">
+            <span class="timeline-rank num">8등</span>
+            <span class="timeline-name">선물 배송 경로 최적화 경진대회</span>
+            <span class="timeline-detail">241팀 중 · 상위 3%</span>
+            <span></span>
+          </div>
+          <div class="timeline-row">
+            <span class="timeline-rank num">14등</span>
+            <span class="timeline-name">블랙박스 영상 기반 지능형 고의사고 분석 모델 AI 경진대회</span>
+            <span class="timeline-detail">319팀 중 · 상위 4%</span>
+            <span></span>
+          </div>
+          <div class="timeline-row">
+            <span class="timeline-rank num">22등</span>
+            <span class="timeline-name">HAI! Hecto AI Challenge (2025 하반기 헥토 채용 AI 경진대회)</span>
+            <span class="timeline-detail">458팀 중 · 상위 4.8%</span>
+            <span class="chip chip-neutral">채용 인재풀 등록</span>
+          </div>
+        </div>
+        <a class="btn btn-ghost btn-arrow" href="meister1378-ai-portfolio.html#awards" style="align-self: flex-start;">전체 14건 보기</a>
+      </div>
+    </section>
+
+    <section class="section" id="history" data-od-id="history">
+      <div class="container stack reveal" style="gap: 28px;">
+        <div style="max-width: 48ch;">
+          <p class="kicker">RECORD</p>
+          <h2>연혁</h2>
+        </div>
+        <div class="timeline-list">
+          <div class="timeline-row">
+            <span class="timeline-rank num">2024</span>
+            <span class="timeline-name">광운대학교 수학과</span>
+            <span class="timeline-detail">학사</span>
+            <span></span>
+          </div>
+          <div class="timeline-row">
+            <span class="timeline-rank num">2024</span>
+            <span class="timeline-name">KCA ICT연구소</span>
+            <span class="timeline-detail">2024.08 – 2026.03</span>
+            <span></span>
+          </div>
+          <div class="timeline-row">
+            <span class="timeline-rank num">2026</span>
+            <span class="timeline-name">KIOT 기업부설연구소</span>
+            <span class="timeline-detail">2026.03 – 2027.08</span>
+            <span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="projects" data-od-id="projects">
+      <div class="container stack reveal" style="gap: 28px;">
+        <div class="row-between" style="align-items: flex-start; flex-wrap: wrap;">
+          <div style="max-width: 48ch;">
+            <p class="kicker">PROJECTS</p>
+            <h2>대표 프로젝트</h2>
+            <p class="lead" style="margin-top: 12px;">클릭하면 실제 입력·추론 페이지로 이동합니다.</p>
+          </div>
+          <a class="btn btn-solid" href="meister1378-ai-portfolio.html">프로젝트 페이지 전체 보기</a>
+        </div>
+        <div class="grid-2">
+          <div class="feature" style="grid-column: span 2;">
+            <h3>반도체 소자 이상탐지</h3>
+            <p>anomalib의 PatchCore와 ResNet18 임베딩 기반 Isolation Forest를 함께 돌리는 앙상블 모델로, 결함 샘플이 거의 없는 반도체 공정에서도 이상 소자를 비지도 학습 기반으로 짚어냅니다.</p>
+            <a class="feature-link" href="meister1378-ai-portfolio.html#projects">페이지 이동 →</a>
+          </div>
+          <div class="feature">
+            <h3>실시간 열화상 복원</h3>
+            <p>FiLM 프롬프트 조건화를 결합한 경량 Restormer 기반 모델(UPFN)이, 센서 노이즈·모션 블러·조도 열화를 한 번의 추론으로 동시에 복원합니다.</p>
+            <a class="feature-link" href="meister1378-ai-portfolio.html#project-thermal">페이지 이동 →</a>
+          </div>
+          <div class="feature">
+            <h3>이미지·영상 딥페이크 탐지</h3>
+            <p>2025년 하반기 헥토 채용 AI 경진대회 과제로, 이미지와 영상에 남은 생성·조작 흔적을 탐지하는 모델을 개발했습니다.</p>
+            <a class="feature-link" href="meister1378-ai-portfolio.html#project-deepfake">페이지 이동 →</a>
+          </div>
+          <div class="feature">
+            <h3>블랙박스 영상 사고 분석 모델</h3>
+            <p>영상 한 편에서 재촬영 여부, 충돌·회피 동작, 조향·가속·감속까지 서로 다른 모델로 순차 분석합니다.</p>
+            <a class="feature-link" href="meister1378-ai-portfolio.html#project-caraccident">페이지 이동 →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="skills" data-od-id="skills">
+      <div class="container stack reveal" style="gap: 28px;">
+        <div style="max-width: 48ch;">
+          <p class="kicker">STACK</p>
+          <h2>핵심 역량과 스킬</h2>
+        </div>
+        <div>
+          <h3 style="margin-bottom: 14px;">핵심 역량</h3>
+          <div class="row" style="flex-wrap: wrap; gap: 10px;">
+            <span class="competency-tag">이상탐지</span>
+            <span class="competency-tag">영상 복원</span>
+            <span class="competency-tag">최적화</span>
+            <span class="competency-tag">3D 인식</span>
+          </div>
+        </div>
+        <div style="border-top: 1px solid var(--line2);"></div>
+        <div>
+          <h3 style="margin-bottom: 14px;">스킬</h3>
+          <div class="row" style="flex-wrap: wrap; gap: 10px;">
+            <span class="chip chip-cy skill-chip">Python</span>
+            <span class="chip chip-cy skill-chip">PyTorch</span>
+            <span class="chip chip-cy skill-chip">OpenCV</span>
+            <span class="chip chip-cy skill-chip">NumPy</span>
+            <span class="chip chip-cy skill-chip">Docker</span>
+            <span class="chip chip-cy skill-chip">DeepStream</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="letter" data-od-id="letter">
+      <div class="container reveal" style="max-width: 66ch;">
+        <p class="kicker">README</p>
+        <h2 style="margin-bottom: 22px;">백문이 불여일견</h2>
+        <div class="letter-block">
+          <p>설명을 길게 늘어놓기보다, 실제로 동작하는 결과를 먼저 보여주는 편이 낫다고 생각합니다.</p>
+          <p>그래서 이 포트폴리오의 프로젝트 페이지는 모델 구조 설명 대신, 실제 입력과 추론 결과를 그대로 재현해 직접 실행해볼 수 있도록 구성했습니다. 진행했던 프로젝트와 경진대회 성과도 전부 실제 기록만 담았습니다.</p>
+        </div>
+      </div>
+    </section>
+
+    </div>
+
+  </main>
+
+  <footer class="pagefoot" data-od-id="footer">
+    <div class="container row-between">
+      <span class="fl">meister1378<span style="color: var(--cy);">.</span></span>
+      <span class="fr">
+        <span>© 2026</span>
+        <a href="meister1378-ai-portfolio.html">프로젝트 페이지</a>
+        <a href="https://github.com/meister1378" target="_blank" rel="noopener">github.com/meister1378</a>
+      </span>
+    </div>
+  </footer>
+
+  <script>
+  (function(){
+    var revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+      revealEls.forEach(function(el){ io.observe(el); });
+    } else {
+      revealEls.forEach(function(el){ el.classList.add('in'); });
+    }
+
+    var moreToggle = document.getElementById('toggle-more');
+    var moreContent = document.getElementById('more-content');
+    function revealMore(){
+      if (!moreContent.hasAttribute('hidden')) return;
+      moreContent.removeAttribute('hidden');
+      if (moreToggle) {
+        moreToggle.textContent = '접기 ↑';
+        moreToggle.setAttribute('aria-expanded', 'true');
+      }
+      if ('IntersectionObserver' in window) {
+        moreContent.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+      } else {
+        moreContent.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+      }
+    }
+    if (moreToggle && moreContent) {
+      moreToggle.addEventListener('click', function(){
+        if (moreContent.hasAttribute('hidden')) {
+          revealMore();
+        } else {
+          moreContent.setAttribute('hidden', '');
+          moreToggle.textContent = '소개(About Me) ↓';
+          moreToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+      if (location.hash && moreContent.querySelector(location.hash)) { revealMore(); }
+      document.querySelectorAll('a[href^="#"]').forEach(function(a){
+        a.addEventListener('click', function(){
+          if (moreContent.querySelector(a.getAttribute('href'))) revealMore();
+        });
+      });
+    }
+
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var cmdEl = document.querySelector('[data-term-cmd]');
+    var outEl = document.querySelector('[data-term-out]');
+    var caret1 = document.querySelector('[data-term-caret1]');
+    var caret2 = document.querySelector('[data-term-caret2]');
+    var cmd = 'whoami';
+    var out = 'meister1378 — Vision AI Engineer';
+
+    function typeInto(el, text, done){
+      if (reduceMotion) { el.textContent = text; if (done) done(); return; }
+      var i = 0;
+      (function step(){
+        el.textContent = text.slice(0, i);
+        i++;
+        if (i <= text.length) { setTimeout(step, 48); }
+        else if (done) { done(); }
+      })();
+    }
+
+    if (cmdEl && outEl) {
+      typeInto(cmdEl, cmd, function(){
+        if (caret1) caret1.style.display = 'none';
+        setTimeout(function(){
+          if (caret2) caret2.style.display = 'inline-block';
+          typeInto(outEl, out);
+        }, 200);
+      });
+    }
+  })();
+  </script>
+
+
+
+</body></html>
