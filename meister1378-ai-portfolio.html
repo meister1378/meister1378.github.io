@@ -644,44 +644,41 @@
       </div>
     </section>
 
-    <section class="section" id="project-deepfake" data-od-id="project-deepfake">
+    <section class="section" id="project-codenet" data-od-id="project-codenet">
       <div class="container stack reveal" style="gap: 26px;">
         <div class="row-between" style="align-items: flex-start; flex-wrap: wrap; gap: 18px;">
-          <div style="max-width: none;">
-            <p class="kicker">PROJECT 05 · DEEPFAKE DETECTION</p>
-            <h2>이미지·영상 딥페이크 탐지</h2>
-            <p class="lead" style="margin-top: 12px; max-width: none;">2025년 하반기 헥토 채용 AI 경진대회 과제로,<br>이미지와 영상에 남은 생성·조작 흔적을 탐지하는 모델을 개발했습니다.</p>
+          <div style="max-width: 62ch;">
+            <p class="kicker">PROJECT 05 · MONOCULAR CROWD LOCALIZATION</p>
+            <h2>단일 영상 군중 위치·밀도 분석</h2>
+            <p class="lead" style="margin-top: 12px;">보정하지 않은 RGB 영상 한 장에서 사람 위치, 카메라 화각·기울기·높이, 사람별 거리를 한 번의 추론으로 추정하고, 위에서 내려다본 지면 좌표로 옮겨 군집별 인원·면적·밀도를 계산합니다.</p>
             <div class="row" style="margin-top: 16px; flex-wrap: wrap; gap: 8px;">
-              <span class="chip chip-cy">Computer Vision</span>
+              <span class="chip chip-cy">Crowd Localization</span>
+              <span class="chip chip-cy">Camera Estimation</span>
+              <span class="chip chip-cy">Metric BEV</span>
             </div>
           </div>
-          <a class="btn btn-ghost btn-arrow" href="https://github.com/meister1378/Hecto_DeepFake_Detection" target="_blank" rel="noopener" data-od-id="repo-deepfake">레포지토리 보기</a>
+          <a class="btn btn-ghost btn-arrow" href="https://github.com/meister1378/CodeNet" target="_blank" rel="noopener" data-od-id="repo-codenet">레포지토리 보기</a>
         </div>
         <div class="stack" style="gap: 18px;">
           <div class="visual">
             <div class="shot-pair">
-              <img class="shot" id="shot-deepfake" src="assets/deepfake-fake.jpg" alt="분석 대상 이미지">
-              <span class="shot-tag" id="tag-deepfake">INPUT · 샘플 1</span>
-              <span class="shot-tag tag-br verdict-overlay" id="verdict-deepfake"></span>
+              <video class="shot" id="shot-codenet" style="object-fit: contain;" poster="assets/codenet-s1-input-poster.jpg" src="assets/codenet-s1-input.mp4" muted="" loop="" playsinline="" preload="none"></video>
+              <span class="shot-tag" id="tag-codenet">INPUT · 샘플 1</span>
+              <button class="play-btn" data-video="shot-codenet" aria-label="영상 재생">▶</button>
             </div>
           </div>
-          <div class="input-picker" id="picker-deepfake" style="max-width: 360px;">
-            <button class="pick-btn active" data-key="fake" data-od-id="pick-deepfake-1">
-              <img src="assets/deepfake-fake.jpg" alt="샘플 1 선택">
-              <span>샘플 1</span>
-            </button>
-            <button class="pick-btn" data-key="real" data-od-id="pick-deepfake-2">
-              <img src="assets/deepfake-real.jpg" alt="샘플 2 선택">
-              <span>샘플 2</span>
-            </button>
+          <div class="input-picker" id="picker-codenet-sample" style="max-width: 240px;">
+            <button class="pick-btn active" data-key="s1" data-od-id="pick-codenet-s1"><img src="assets/codenet-s1-input-poster.jpg" alt="샘플 1 선택"><span>샘플 1</span></button>
+            <button class="pick-btn" data-key="s2" data-od-id="pick-codenet-s2"><img src="assets/codenet-s2-input-poster.jpg" alt="샘플 2 선택"><span>샘플 2</span></button>
           </div>
           <div class="result-flat">
-            <span class="chip chip-neutral" id="badge-deepfake">대기 중</span>
-            <button class="btn btn-ghost" data-demo="deepfake" data-od-id="run-deepfake">실행</button>
+            <span class="chip chip-neutral" id="badge-codenet">대기 중</span>
+            <button class="btn btn-ghost" id="run-codenet" data-od-id="run-codenet">실행</button>
           </div>
-          <div class="data-row"><span class="k">과제 유형</span><span class="v">이미지 / 영상 분류</span></div>
-          <div class="data-row"><span class="k">주최</span><span class="v">Hecto 채용 AI 경진대회</span></div>
-          <div class="data-row"><span class="k">판정</span><span class="v" id="status-deepfake">—</span></div>
+          <div class="data-row"><span class="k">출력</span><span class="v">사람별 지면 위치(m) · 카메라 화각·기울기·높이 · 군집별 인원·면적·밀도</span></div>
+          <div class="data-row"><span class="k">특징</span><span class="v">카메라 보정·호모그래피·현장별 설정 없이 동작</span></div>
+          <div class="data-row"><span class="k">데이터</span><span class="v">NWPU-Crowd · ShanghaiTech · JHU-Crowd++ · FDST · DroneCrowd</span></div>
+          <div class="data-row"><span class="k">상태</span><span class="v" id="status-codenet">—</span></div>
         </div>
       </div>
     </section>
@@ -785,6 +782,48 @@
       </div>
     </section>
 
+    <section class="section" id="project-deepfake" data-od-id="project-deepfake">
+      <div class="container stack reveal" style="gap: 26px;">
+        <div class="row-between" style="align-items: flex-start; flex-wrap: wrap; gap: 18px;">
+          <div style="max-width: none;">
+            <p class="kicker">PROJECT 07 · DEEPFAKE DETECTION</p>
+            <h2>이미지·영상 딥페이크 탐지</h2>
+            <p class="lead" style="margin-top: 12px; max-width: none;">2025년 하반기 헥토 채용 AI 경진대회 과제로,<br>이미지와 영상에 남은 생성·조작 흔적을 탐지하는 모델을 개발했습니다.</p>
+            <div class="row" style="margin-top: 16px; flex-wrap: wrap; gap: 8px;">
+              <span class="chip chip-cy">Computer Vision</span>
+            </div>
+          </div>
+          <a class="btn btn-ghost btn-arrow" href="https://github.com/meister1378/Hecto_DeepFake_Detection" target="_blank" rel="noopener" data-od-id="repo-deepfake">레포지토리 보기</a>
+        </div>
+        <div class="stack" style="gap: 18px;">
+          <div class="visual">
+            <div class="shot-pair">
+              <img class="shot" id="shot-deepfake" src="assets/deepfake-fake.jpg" alt="분석 대상 이미지">
+              <span class="shot-tag" id="tag-deepfake">INPUT · 샘플 1</span>
+              <span class="shot-tag tag-br verdict-overlay" id="verdict-deepfake"></span>
+            </div>
+          </div>
+          <div class="input-picker" id="picker-deepfake" style="max-width: 360px;">
+            <button class="pick-btn active" data-key="fake" data-od-id="pick-deepfake-1">
+              <img src="assets/deepfake-fake.jpg" alt="샘플 1 선택">
+              <span>샘플 1</span>
+            </button>
+            <button class="pick-btn" data-key="real" data-od-id="pick-deepfake-2">
+              <img src="assets/deepfake-real.jpg" alt="샘플 2 선택">
+              <span>샘플 2</span>
+            </button>
+          </div>
+          <div class="result-flat">
+            <span class="chip chip-neutral" id="badge-deepfake">대기 중</span>
+            <button class="btn btn-ghost" data-demo="deepfake" data-od-id="run-deepfake">실행</button>
+          </div>
+          <div class="data-row"><span class="k">과제 유형</span><span class="v">이미지 / 영상 분류</span></div>
+          <div class="data-row"><span class="k">주최</span><span class="v">Hecto 채용 AI 경진대회</span></div>
+          <div class="data-row"><span class="k">판정</span><span class="v" id="status-deepfake">—</span></div>
+        </div>
+      </div>
+    </section>
+
     <div class="extra-projects-toggle" data-od-id="extra-projects-toggle">
       <button class="btn btn-ghost" id="toggle-extra-projects" data-od-id="toggle-extra-projects" aria-expanded="false" aria-controls="extra-projects">추가 프로젝트 확인 (5건)</button>
     </div>
@@ -794,7 +833,7 @@
     <section class="section" id="project-hemato" data-od-id="project-hemato">
       <div class="container stack reveal" style="gap: 26px;">
         <div style="max-width: none;">
-          <p class="kicker">PROJECT 07 · ROI EXTRACTION PIPELINE · 2024.09–2024.10</p>
+          <p class="kicker">PROJECT 08 · ROI EXTRACTION PIPELINE · 2024.09–2024.10</p>
           <h2>혈동태 영역 추출 파이프라인</h2>
           <p class="lead" style="margin-top: 12px; max-width: none;">데이터바우처 스마트웰니스 과제로,<br>혈동태 그래프에서 분석 대상 ROI를 2단계 YOLOv9 앙상블로 추출했습니다.</p>
           <div class="row" style="margin-top: 16px; flex-wrap: wrap; gap: 8px;">
@@ -822,7 +861,7 @@
     <section class="section" id="project-dpo" data-od-id="project-dpo">
       <div class="container stack reveal" style="gap: 26px;">
         <div style="max-width: none;">
-          <p class="kicker">PROJECT 08 · DPO LLM FINE-TUNING · 2025.02–2025.05</p>
+          <p class="kicker">PROJECT 09 · DPO LLM FINE-TUNING · 2025.02–2025.05</p>
           <h2>DPO 기반 LLM 강화학습</h2>
           <p class="lead" style="margin-top: 12px; max-width: none;">양자화된 Gemma2로 선호 데이터를 자동 생성하고,<br>DPO로 파인튜닝한 모델을 RAG 파이프라인에 연결해 서빙까지 구축했습니다.</p>
           <div class="row" style="margin-top: 16px; flex-wrap: wrap; gap: 8px;">
@@ -851,7 +890,7 @@
     <section class="section" id="project-ocr" data-od-id="project-ocr">
       <div class="container stack reveal" style="gap: 26px;">
         <div style="max-width: none;">
-          <p class="kicker">PROJECT 09 · OCR MODEL UPGRADE · 2025.06–2025.12</p>
+          <p class="kicker">PROJECT 10 · OCR MODEL UPGRADE · 2025.06–2025.12</p>
           <h2>VLM 기반 OCR 모델 학습</h2>
           <p class="lead" style="margin-top: 12px; max-width: none;">레이아웃 검출 → 텍스트 검출 → 인식의 3단계 파이프라인을,<br>탐지와 문장 인식을 한 번에 처리하는 LoRA 파인튜닝 VL 모델로 교체했습니다.</p>
           <div class="row" style="margin-top: 16px; flex-wrap: wrap; gap: 8px;">
@@ -879,7 +918,7 @@
     <section class="section" id="project-water" data-od-id="project-water">
       <div class="container stack reveal" style="gap: 26px;">
         <div style="max-width: none;">
-          <p class="kicker">PROJECT 10 · WATER QUALITY ANOMALY DETECTION · 2025.08–2025.12</p>
+          <p class="kicker">PROJECT 11 · WATER QUALITY ANOMALY DETECTION · 2025.08–2025.12</p>
           <h2>결측치 보간 및 LLM을 통한 이상치 모니터링</h2>
           <p class="lead" style="margin-top: 12px; max-width: none;">국립환경과학원 실시간 수질정보시스템 과제로,<br>결측치 보간부터 이상치 탐지, LLM 자동 보고까지 운영 가능한 파이프라인을 설계했습니다.</p>
           <div class="row" style="margin-top: 16px; flex-wrap: wrap; gap: 8px;">
@@ -908,7 +947,7 @@
     <section class="section" id="project-npu" data-od-id="project-npu">
       <div class="container stack reveal" style="gap: 26px;">
         <div style="max-width: none;">
-          <p class="kicker">PROJECT 11 · GPU→NPU MIGRATION · 2026.08</p>
+          <p class="kicker">PROJECT 12 · GPU→NPU MIGRATION · 2026.08</p>
           <h2>NPU 기반 최적화 파이프라인 설계</h2>
           <p class="lead" style="margin-top: 12px; max-width: none;">GPU 아키텍처를 그대로 이식하지 않고 실측 벤치마크로 먼저 반증한 뒤 재설계해,<br>카메라 수와 무관하게 확장 가능한 구조를 확보했습니다.</p>
           <div class="row" style="margin-top: 16px; flex-wrap: wrap; gap: 8px;">
@@ -1355,6 +1394,54 @@
           badge.classList.remove('pop-in'); void badge.offsetWidth;
           badge.className = 'chip chip-good pop-in'; badge.textContent = m.badgeText;
           statusEl.textContent = m.statusText;
+        }, 650);
+      });
+
+      resetView();
+    })();
+
+    var codenetSamples = {
+      s1: { label: '샘플 1', key: 'codenet-s1' },
+      s2: { label: '샘플 2', key: 'codenet-s2' }
+    };
+    (function(){
+      var vid = document.getElementById('shot-codenet');
+      if (!vid) return;
+      var tag = document.getElementById('tag-codenet');
+      var badge = document.getElementById('badge-codenet');
+      var statusEl = document.getElementById('status-codenet');
+      var playBtn = document.querySelector('.play-btn[data-video="shot-codenet"]');
+      var currentSample = 's1';
+
+      function setVideo(base){
+        vid.pause(); vid.src = 'assets/' + base + '.mp4'; vid.poster = 'assets/' + base + '-poster.jpg'; vid.load(); vid.currentTime = 0;
+        if (playBtn) { playBtn.textContent = '▶'; playBtn.setAttribute('aria-label', '영상 재생'); }
+      }
+      function resetView(){
+        var s = codenetSamples[currentSample];
+        setVideo(s.key + '-input');
+        tag.textContent = 'INPUT · ' + s.label;
+        badge.className = 'chip chip-neutral'; badge.textContent = '대기 중';
+        statusEl.textContent = '—';
+      }
+
+      document.querySelectorAll('#picker-codenet-sample .pick-btn').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          currentSample = btn.dataset.key;
+          document.querySelectorAll('#picker-codenet-sample .pick-btn').forEach(function(b){ b.classList.toggle('active', b === btn); });
+          resetView();
+        });
+      });
+      document.getElementById('run-codenet').addEventListener('click', function(){
+        badge.className = 'chip chip-neutral'; badge.textContent = '분석 중…';
+        statusEl.textContent = '—';
+        setTimeout(function(){
+          var s = codenetSamples[currentSample];
+          setVideo(s.key + '-output');
+          tag.textContent = 'OUTPUT · ' + s.label;
+          badge.classList.remove('pop-in'); void badge.offsetWidth;
+          badge.className = 'chip chip-good pop-in'; badge.textContent = '분석 완료';
+          statusEl.textContent = '왼쪽: 군집 오버레이 · 오른쪽: 지면 좌표 탑뷰(BEV)';
         }, 650);
       });
 
