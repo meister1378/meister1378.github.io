@@ -675,7 +675,7 @@
             <span class="chip chip-neutral" id="badge-codenet">대기 중</span>
             <button class="btn btn-ghost" id="run-codenet" data-od-id="run-codenet">실행</button>
           </div>
-          <div class="data-row"><span class="k">출력</span><span class="v">사람별 지면 위치(m) · 카메라 화각·기울기·높이 · 군집별 인원·면적·밀도</span></div>
+          <div class="data-row"><span class="k">출력</span><span class="v">사람별 지면 위치(m) · 카메라 화각·기울기·높이 · 군집별 인원·면적·밀도·위험도</span></div>
           <div class="data-row"><span class="k">특징</span><span class="v">카메라 보정·호모그래피·현장별 설정 없이 동작</span></div>
           <div class="data-row"><span class="k">데이터</span><span class="v">NWPU-Crowd · ShanghaiTech · JHU-Crowd++ · FDST · DroneCrowd</span></div>
           <div class="data-row"><span class="k">상태</span><span class="v" id="status-codenet">—</span></div>
@@ -1441,7 +1441,7 @@
           tag.textContent = 'OUTPUT · ' + s.label;
           badge.classList.remove('pop-in'); void badge.offsetWidth;
           badge.className = 'chip chip-good pop-in'; badge.textContent = '분석 완료';
-          statusEl.textContent = '왼쪽: 군집 오버레이 · 오른쪽: 지면 좌표 탑뷰(BEV)';
+          statusEl.textContent = '군집을 밀도별 위험도로 색칠 (안전 2명/m² 미만 · 주의 2~4명 · 경고 4명 이상), 오른쪽은 지면 좌표 탑뷰';
         }, 650);
       });
 
