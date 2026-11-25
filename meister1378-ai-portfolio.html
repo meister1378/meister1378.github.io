@@ -650,7 +650,7 @@
           <div style="max-width: 62ch;">
             <p class="kicker">PROJECT 05 · MONOCULAR CROWD LOCALIZATION</p>
             <h2>단일 영상 군중 위치·밀도 분석</h2>
-            <p class="lead" style="margin-top: 12px;">보정하지 않은 RGB 영상 한 장에서 사람 위치, 카메라 화각·기울기·높이, 사람별 거리를 한 번의 추론으로 추정하고, 위에서 내려다본 지면 좌표로 옮겨 군집별 인원·면적·밀도를 계산합니다.</p>
+            <p class="lead" style="margin-top: 12px;">보정하지 않은 RGB 영상 한 장에서 사람 위치, 카메라 화각·기울기·높이, 사람별 거리를 한 번의 추론으로 추정하고, 위에서 내려다본 지면 밀도 지도로 군중 구역을 나눠 구역별 인원·면적·밀도·위험도를 계산합니다.</p>
             <div class="row" style="margin-top: 16px; flex-wrap: wrap; gap: 8px;">
               <span class="chip chip-cy">Crowd Localization</span>
               <span class="chip chip-cy">Camera Estimation</span>
@@ -675,7 +675,7 @@
             <span class="chip chip-neutral" id="badge-codenet">대기 중</span>
             <button class="btn btn-ghost" id="run-codenet" data-od-id="run-codenet">실행</button>
           </div>
-          <div class="data-row"><span class="k">출력</span><span class="v">사람별 지면 위치(m) · 카메라 화각·기울기·높이 · 군집별 인원·면적·밀도</span></div>
+          <div class="data-row"><span class="k">출력</span><span class="v">사람별 지면 위치(m) · 카메라 화각·기울기·높이 · 구역별 인원·면적·밀도·위험도</span></div>
           <div class="data-row"><span class="k">특징</span><span class="v">카메라 보정·호모그래피·현장별 설정 없이 동작</span></div>
           <div class="data-row"><span class="k">데이터</span><span class="v">NWPU-Crowd · ShanghaiTech · JHU-Crowd++ · FDST · DroneCrowd</span></div>
           <div class="data-row"><span class="k">상태</span><span class="v" id="status-codenet">—</span></div>
@@ -1441,7 +1441,7 @@
           tag.textContent = 'OUTPUT · ' + s.label;
           badge.classList.remove('pop-in'); void badge.offsetWidth;
           badge.className = 'chip chip-good pop-in'; badge.textContent = '분석 완료';
-          statusEl.textContent = '왼쪽: 군집 오버레이 · 오른쪽: 지면 좌표 탑뷰(BEV)';
+          statusEl.textContent = '군중 구역을 밀도별로 색칠 (초록 1~2명/m² · 노랑 2~4명 · 빨강 4명 이상), 오른쪽은 지면 좌표 탑뷰';
         }, 650);
       });
 
